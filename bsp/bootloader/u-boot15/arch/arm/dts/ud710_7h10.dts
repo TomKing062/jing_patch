@@ -1,0 +1,138 @@
+/dts-v1/;
+
+/ {
+	model = "Spreadtrum 710_7h10 Board";
+	compatible = "sprd,ud710_7h10";
+	sprd,sc-id = <0x2c6 0x01 0x20000>;
+
+	reserved-memory {
+		#address-cells = <0x02>;
+		#size-cells = <0x02>;
+		ranges;
+
+		fastbootbuffer@b0000000 {
+			reg = <0x00 0xb0000000 0x00 0x28000000>;
+			linux,phandle = <0x02>;
+			phandle = <0x02>;
+		};
+
+		sparsebuffer@b0000000 {
+			reg = <0x00 0xb0000000 0x00 0x28000000>;
+			linux,phandle = <0x03>;
+			phandle = <0x03>;
+		};
+
+		alterbuffer1@92000000 {
+			reg = <0x00 0x92000000 0x00 0x200000>;
+			linux,phandle = <0x04>;
+			phandle = <0x04>;
+		};
+
+		alterbuffer2@92200000 {
+			reg = <0x00 0x92200000 0x00 0x200000>;
+			linux,phandle = <0x05>;
+			phandle = <0x05>;
+		};
+
+		logbuffer@92400000 {
+			reg = <0x00 0x92400000 0x00 0x50000>;
+			linux,phandle = <0x06>;
+			phandle = <0x06>;
+		};
+
+		sml-mem@94000000 {
+			reg = <0x00 0x94000000 0x00 0x100000>;
+		};
+
+		tos-mem@94100000 {
+			reg = <0x00 0x94100000 0x00 0x1f00000>;
+		};
+
+		sh-mem@96000000 {
+			reg = <0x00 0x96000000 0x00 0x100000>;
+		};
+
+		secboot-arg-mem@98100000 {
+			reg = <0x00 0x98100000 0x00 0xf00000>;
+		};
+
+		secboot-vbmeta-mem@99000000 {
+			reg = <0x00 0x99000000 0x00 0x800000>;
+		};
+
+		secboot-verify-mem@99800000 {
+			reg = <0x00 0x99800000 0x00 0x3000000>;
+		};
+
+		bmp-mem@9d000000 {
+			reg = <0x00 0x9d000000 0x00 0x9e4000>;
+			linux,phandle = <0x07>;
+			phandle = <0x07>;
+		};
+
+		writeback-mem@ff5c0000 {
+			reg = <0x00 0xff5c0000 0x00 0xa00000>;
+			linux,phandle = <0x01>;
+			phandle = <0x01>;
+		};
+	};
+
+	ion {
+		compatible = "sprd,ion";
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+
+		heap@3 {
+			reg = <0x03>;
+			label = "carveout_logo";
+			type = <0x02>;
+			memory-region = <0x01>;
+		};
+
+		heap@4 {
+			reg = <0x04>;
+			label = "carveout_fastboot";
+			type = <0x02>;
+			memory-region = <0x02>;
+		};
+
+		heap@5 {
+			reg = <0x05>;
+			label = "carveout_download";
+			type = <0x02>;
+			memory-region = <0x03>;
+		};
+
+		heap@6 {
+			reg = <0x06>;
+			label = "carveout_dl_alt1";
+			type = <0x02>;
+			memory-region = <0x04>;
+		};
+
+		heap@7 {
+			reg = <0x07>;
+			label = "carveout_dl_alt2";
+			type = <0x02>;
+			memory-region = <0x05>;
+		};
+
+		heap@8 {
+			reg = <0x08>;
+			label = "carveout_log";
+			type = <0x02>;
+			memory-region = <0x06>;
+		};
+
+		heap@9 {
+			reg = <0x09>;
+			label = "carveout_bmp";
+			type = <0x02>;
+			memory-region = <0x07>;
+		};
+	};
+
+	dpu {
+		sprd,gsp-outstanding-thres = <0x600000>;
+	};
+};
